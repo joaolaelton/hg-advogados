@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Update active nav link
         updateActiveNavLink();
-        
+
         // Reveal animations
         revealOnScroll();
     };
@@ -52,8 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Close menu on outside click
     document.addEventListener('click', (e) => {
-        if (nav.classList.contains('active') && 
-            !nav.contains(e.target) && 
+        if (nav.classList.contains('active') &&
+            !nav.contains(e.target) &&
             !menuToggle.contains(e.target)) {
             menuToggle.classList.remove('active');
             nav.classList.remove('active');
@@ -93,11 +93,11 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const targetId = link.getAttribute('href');
             const targetSection = document.querySelector(targetId);
-            
+
             if (targetSection) {
                 const headerHeight = header.offsetHeight;
                 const targetPosition = targetSection.offsetTop - headerHeight;
-                
+
                 window.scrollTo({
                     top: targetPosition,
                     behavior: 'smooth'
@@ -111,11 +111,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================
     function revealOnScroll() {
         const windowHeight = window.innerHeight;
-        
+
         revealElements.forEach(element => {
             const elementTop = element.getBoundingClientRect().top;
             const revealPoint = 150;
-            
+
             if (elementTop < windowHeight - revealPoint) {
                 element.classList.add('revealed');
             }
@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            
+
             // Get form data
             const formData = new FormData(contactForm);
             const name = formData.get('name');
@@ -158,10 +158,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Open WhatsApp
             window.open(`https://wa.me/554830282422?text=${whatsappMessage}`, '_blank');
-            
+
             // Show success message
             showNotification('Redirecionando para o WhatsApp...', 'success');
-            
+
             // Reset form
             contactForm.reset();
         });
@@ -267,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (phoneInput) {
         phoneInput.addEventListener('input', (e) => {
             let value = e.target.value.replace(/\D/g, '');
-            
+
             if (value.length <= 11) {
                 if (value.length > 2) {
                     value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     value = `${value.slice(0, 10)}-${value.slice(10)}`;
                 }
             }
-            
+
             e.target.value = value;
         });
     }
@@ -285,7 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Lazy Load Images
     // =========================
     const images = document.querySelectorAll('img[data-src]');
-    
+
     if ('IntersectionObserver' in window) {
         const imageObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
@@ -316,4 +316,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     console.log('Hering Gomes Advogados - Site carregado com sucesso!');
+
+    // =========================
+    // FAQ Accordion
+    // =========================
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+
+        question.addEventListener('click', () => {
+            // Close other items
+            faqItems.forEach(otherItem => {
+                if (otherItem !== item && otherItem.classList.contains('active')) {
+                    otherItem.classList.remove('active');
+                }
+            });
+
+            // Toggle current item
+            item.classList.toggle('active');
+        });
+    });
 });
