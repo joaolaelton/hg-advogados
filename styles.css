@@ -132,7 +132,7 @@ ol {
     transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-.reveal.active {
+.reveal.revealed {
     opacity: 1;
     transform: translateY(0);
 }
